@@ -11,7 +11,7 @@ import {
   popupTypeNewCard, 
   popupTypeImage,
   modalWindows, 
-  popupForm,
+  formElement,
   popupInputTypeName,
   popupInputTypeDescription,  
   formElementTypeNewCard,
@@ -20,6 +20,8 @@ import {
   profileTitle,
   profileDescription
 } from "./constants.js";
+
+import { enableValidation, clearValidation, validationConfig } from "./validation.js";
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); // Отменяет стандартную отправку формы, убирает перезагрузку страницы
@@ -85,7 +87,7 @@ profileAddButton.addEventListener('click', function () {
   openModal(popupTypeNewCard);
 });
 
-popupForm.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleFormSubmit);
 formElementTypeNewCard.addEventListener('submit', handleCardSubmit);
 profileEditButton.addEventListener('click', formEdit);
 
@@ -94,3 +96,5 @@ modalWindows.forEach((item) => {
   popupAnimated(item);
 });
 
+enableValidation(validationConfig);
+clearValidation(validationConfig); 

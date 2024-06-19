@@ -6,14 +6,14 @@ export {  // Экспорт Функций
   popupTypeNewCard, 
   popupTypeImage,
   modalWindows, 
-  popupForm,
+  formElement,
   popupInputTypeName,
   popupInputTypeDescription,  
   formElementTypeNewCard,
   cardName,
   cardLink,
   profileTitle,
-  profileDescription
+  profileDescription  
 }
 
 const content = document.querySelector(".content") // Выбор класса
@@ -24,14 +24,15 @@ const profileEditButton = document.querySelector(".profile__edit-button"); // К
 const profileAddButton = document.querySelector(".profile__add-button"); // Кнопки "+" добавления новых карточек
 const popupTypeImage = document.querySelector(".popup_type_image"); // Модальное окно картинки
 const modalWindows = [popupTypeEdit, popupTypeNewCard, popupTypeImage];
-const popupForm = document.querySelector(".popup__form"); // Выбор класса Формы
-const popupInputTypeName = popupForm.querySelector(".popup__input_type_name"); // Выбор 1 строка форма "Имя"
-const popupInputTypeDescription = popupForm.querySelector(".popup__input_type_description"); // Выбор 2 строка форма "Занятие"
+const formElement = document.querySelector(".popup__form"); // Выбор класса Формы
+const popupInputTypeName = formElement.querySelector(".popup__input_type_name"); // Выбор 1 строка форма "Имя"
+const popupInputTypeDescription = formElement.querySelector(".popup__input_type_description"); // Выбор 2 строка форма "Занятие"
 const formElementTypeNewCard = popupTypeNewCard.querySelector(".popup__form"); // Выбор класса Формы
 const cardName = formElementTypeNewCard.querySelector(".popup__input_type_card-name"); // Обращение к классу в форме
 const cardLink = formElementTypeNewCard.querySelector(".popup__input_type_url"); // Обращение к классу в форме
 const profileTitle = document.querySelector(".profile__title");  
-const profileDescription = document.querySelector(".profile__description"); 
+const profileDescription = document.querySelector(".profile__description");
+ 
 
 
 
