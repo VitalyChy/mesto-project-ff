@@ -1,4 +1,4 @@
-export { enableValidation, clearValidation, validationConfig }
+export { enableValidation, clearValidation, validationConfig };
 
 const validationConfig = ({
   formSelector: '.popup__form',
@@ -15,29 +15,29 @@ const showInputError = (formElement, inputElement, errorMessage, validationConfi
   inputElement.classList.add(validationConfig.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(validationConfig.errorClass);
-}
+};
   
 const hideInputError = (formElement, inputElement, validationConfig) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(validationConfig.inputErrorClass);  
   errorElement.classList.remove(validationConfig.errorClass); 
   errorElement.textContent = ''; 
-}
+};
 
 // Проверка валидности
 const isValid = (formElement, inputElement, validationConfig) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, validationConfig);
-  } else {
-    hideInputError(formElement, inputElement, validationConfig);
-  }
-
   if (inputElement.validity.patternMismatch) {
     inputElement.setCustomValidity(inputElement.dataset.errorMessage);
   } else {
     inputElement.setCustomValidity("");
   }
-}
+  
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage, validationConfig);
+  } else {
+    hideInputError(formElement, inputElement, validationConfig);
+  }  
+};
 
 // Привязка слушателей
 const setEventListeners = (formElement, validationConfig) => {
@@ -54,27 +54,13 @@ const setEventListeners = (formElement, validationConfig) => {
       toggleButtonState(inputList, buttonElement, validationConfig);
     });
   });
-}
-
-// Привязка слушателя к формам
-function enableValidation(validationConfig) {
-  // Найдём все формы с указанным классом в DOM,
-  // сделаем из них массив методом Array.from
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
-
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function() {
-      evt.preventDefault()      
-    });
-    setEventListeners(formElement, validationConfig);
-  });  
-}
+};
 
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });  
-}
+};
 
 // Отключение кнопки
 function toggleButtonState(inputList, buttonElement, validationConfig) {
@@ -85,7 +71,18 @@ function toggleButtonState(inputList, buttonElement, validationConfig) {
     buttonElement.disabled = false;
     buttonElement.classList.remove(validationConfig.inactiveButtonClass);
   }
-}
+};
+
+// Привязка слушателя к формам
+function enableValidation(validationConfig) {
+  // Найдём все формы с указанным классом в DOM,
+  // сделаем из них массив методом Array.from
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, validationConfig);
+  });  
+};
 
 // Очистка классов ошибок
 function clearValidation(formElement, validationConfig) {
@@ -99,5 +96,6 @@ function clearValidation(formElement, validationConfig) {
     hideInputError(formElement, inputElement, validationConfig);
   });
   formElement.reset()
+  
   toggleButtonState(inputList, buttonElement, validationConfig);
-}
+};
