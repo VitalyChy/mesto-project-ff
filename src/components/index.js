@@ -1,8 +1,8 @@
 // Подключение сторонних файлов
 import "../styles/index.css";
 import { initialCards } from "./cards.js";
-import { createCard, deleteCardButton, likeButton } from "./card.js";
-import { openModal, closeModal, popupAnimated } from "./modal.js";
+import { createCard, deleteCardButton, likeButton, openImage } from "./card.js";
+import { openModal, closeModal, popupAnimated, handleCloseModal, handleButtonLoading } from "./modal.js";
 import {  
   placesList, 
   profileEditButton, 
@@ -18,10 +18,11 @@ import {
   cardName,
   cardLink,
   profileTitle,
-  profileDescription    
+  profileDescription     
 } from "./constants.js";
 
 import { enableValidation, clearValidation, validationConfig } from "./validation.js";
+// import {  } from './api.js';
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); // Отменяет стандартную отправку формы, убирает перезагрузку страницы
@@ -32,7 +33,7 @@ function handleFormSubmit(evt) {
   closeModal(popupTypeEdit);
 };
 
-// Функция для записи новых значений для полей форм
+// Функция для записи новых значений для полей форм Редактирования имени
 function formEdit() {
   const profileTitle = document.querySelector(".profile__title").textContent;
   const profileDescription = document.querySelector(".profile__description").textContent;
@@ -40,36 +41,21 @@ function formEdit() {
   popupInputTypeDescription.value = profileDescription;
 };
 
-// Функция открытия картинки
-function openImage(cardLink, cardName, cardTitle) {
-  popupTypeImage.querySelector(".popup__image").src = cardLink;
-  popupTypeImage.querySelector(".popup__image").alt = cardName;
-  popupTypeImage.querySelector(".popup__caption").textContent = cardTitle;
-  openModal(popupTypeImage)
-};
-
 // Функция добавления новых карточек
 function handleCardSubmit(evt) {
   evt.preventDefault(); // Отменяет стандартную отправку формы
+
   const Card = {
     name: cardName.value, // Параметр value хранит значение, и передает методу
     link: cardLink.value,
-  };
+  };  
   placesList.prepend(createCard(Card, deleteCardButton, openImage, likeButton)) // prepend Добавляет элементы в начало
   closeModal(popupTypeNewCard);
+  
   formElementTypeNewCard.reset(); // Сброс к дефолтным значениям всех полей формы  
-};
 
-// Функция закрытия Модальных окон через "click" или "click" Вне окна
-function handleCloseModal(popup) {   
-  popup.addEventListener('click', (evt) => { // Обработчик события
-    if (evt.currentTarget === evt.target) {
-      closeModal(popup)
-    }    
-  });
-  popup.querySelector(".popup__close").addEventListener('click', (event) => {
-    closeModal(popup);
-  });  
+  handleButtonLoading(evt.target.querySelector('.popup__button')); 
+  clearValidation(formElement, validationConfig); 
 };
 
 // Вывести карточки на страницу
@@ -77,7 +63,7 @@ initialCards.forEach(function(item) {
   placesList.append(createCard(item, deleteCardButton, openImage, likeButton));  
 });
 
-// Вызов кнопки "Редактироввать" окно, Nickname
+// Функция вызова кнопки "Редактироввать" окно, Nickname
 profileEditButton.addEventListener('click', function () {
   openModal(popupTypeEdit);
   clearValidation(formElement, validationConfig);  
@@ -87,7 +73,7 @@ profileEditButton.addEventListener('click', function () {
 profileAddButton.addEventListener('click', function () {
   openModal(popupTypeNewCard);
   formElement.reset();
-  clearValidation(formElement, validationConfig);  
+  clearValidation(formElement, validationConfig); 
 });
 
 formElement.addEventListener('submit', handleFormSubmit);
@@ -100,6 +86,11 @@ modalWindows.forEach((item) => {
 });
 
 enableValidation(validationConfig);
+
+
+
+
+
 
 
 

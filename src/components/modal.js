@@ -1,4 +1,4 @@
-export { openModal, closeModal, popupAnimated } // Экспорт Функций
+export { openModal, closeModal, popupAnimated, handleCloseModal, handleButtonLoading } // Экспорт Функций
 
 function openModal(popupElement) {
   popupElement.classList.add("popup_is-opened");
@@ -23,3 +23,25 @@ function popupAnimated(popupElement) {
   popupElement.classList.add("popup_is-animated");
 }
 
+// Функция закрытия Модальных окон через "click" или "click" Вне окна
+function handleCloseModal(popup) {   
+  popup.addEventListener('click', (evt) => { // Обработчик события
+    if (evt.currentTarget === evt.target) {
+      closeModal(popup)
+    }    
+  });
+  popup.querySelector(".popup__close").addEventListener('click', (event) => {
+    closeModal(popup);
+  });  
+};
+
+// Функция изменения вида кнопки
+function handleButtonLoading(buttonElement) {
+  if (buttonElement.classList.contains('popup__button_loading')) {
+    buttonElement.classList.remove('popup__button_loading');
+    buttonElement.textContent = 'Сохранить';
+  } else {
+    buttonElement.classList.add('popup__button_loading');
+    buttonElement.textContent = 'Сохранение...';
+  }
+}

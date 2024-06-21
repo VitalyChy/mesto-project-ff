@@ -1,4 +1,14 @@
-export { createCard, deleteCardButton, likeButton } // Экспорт Функций
+export { createCard, deleteCardButton, likeButton, openImage } // Экспорт Функций
+import { popupTypeImage } from "./constants.js";
+import { openModal } from "./modal.js";
+
+// Функция открытия картинки
+function openImage(cardLink, cardName, cardTitle) {
+  popupTypeImage.querySelector(".popup__image").src = cardLink;
+  popupTypeImage.querySelector(".popup__image").alt = cardName;
+  popupTypeImage.querySelector(".popup__caption").textContent = cardTitle;
+  openModal(popupTypeImage);
+};
 
 // Функция создания карточки
 function createCard(initialCard, cardDelete, openImage, likeButton) {  
