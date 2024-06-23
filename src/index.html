@@ -23,7 +23,10 @@
           <div
             class="profile__image"
             style="background-image: url(<%=require('./images/avatar.jpg')%>)"
-          ></div>
+          >
+            <div class="profile__cover"></div>
+            <button class="profile__image-edit-button" type="button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -38,7 +41,6 @@
       <footer class="footer page__section">
         <p class="footer__copyright">© 2021 Mesto Russia</p>
       </footer>
-        
 
       <div class="popup popup_type_edit">
         <div class="popup__content">
@@ -51,7 +53,6 @@
               class="popup__input popup__input_type_name"
               placeholder="Имя"
               required
-              
               id="name-input"
               minlength="2"
               maxlength="40"
@@ -66,7 +67,6 @@
               class="popup__input popup__input_type_description"
               placeholder="Занятие"
               required
-
               id="description-input"
               minlength="2"
               maxlength="200"
@@ -75,13 +75,12 @@
             />
             <span class="popup__input-error description-input-error"></span>
 
-            <button type="submit" class="button popup__button" >
+            <button type="submit" class="button popup__button">
               Сохранить
             </button>
           </form>
         </div>
       </div>
-
 
       <div class="popup popup_type_new-card">
         <div class="popup__content">
@@ -94,7 +93,6 @@
               class="popup__input popup__input_type_card-name"
               placeholder="Название"
               required
-
               id="new-place-name-input"
               minlength="2"
               maxlength="30"
@@ -109,7 +107,6 @@
               class="popup__input popup__input_type_url"
               placeholder="Ссылка на картинку"
               required
-              
               id="url-input"
             />
             <span class="popup__input-error url-input-error"></span>
@@ -121,34 +118,28 @@
         </div>
       </div>
 
-
-      <div class="popup popup_type_edit-avatar">
+      <div class="popup popup_type_edit-avatar popup_is-animated">
         <div class="popup__content">
-          <button class="popup__close"></button>
-          <h3 class="popup__title">Редактировать аватар</h3>
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Обновить аватар</h3>
           <form class="popup__form" name="edit-avatar" novalidate>
-            <input 
-              type="url" 
-              name="avatar"
-              id="avatar-input"
-              placeholder="avatar"
-              class="popup__input popup__input_type_avatar"
-              required
-            >
-            <span class="avatar-input-error popup__input-error"></span>
-            <button type="submit" class="button popup__button">Сохранить</button>
+            <div class="popup__input-box">
+              <input
+                type="url"
+                name="link"
+                id="avatar-link-input"
+                class="popup__input popup__input_type_url"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="popup__error avatar-link-input-error"></span>
+            </div>
+            <button type="submit" class="button popup__button">
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
-      <div class="popup popup_type_delete-card">
-        <div class="popup__content">
-          <button class="popup__close"></button>
-          <h3 class="popup__title">Вы уверены?</h3>
-          <form class=""></form>
-          <button type="submit" class="button popup__button">Удалить</button>
-        </div>
-      </div>
-
 
       <div class="popup popup_type_image">
         <div class="popup__content popup__content_content_image">
@@ -157,8 +148,7 @@
           <p class="popup__caption"></p>
         </div>
       </div>
-    </div>  
-      
+    </div>
 
     <template id="card-template">
       <li class="places__item card">
@@ -172,4 +162,3 @@
     </template>
   </body>
 </html>
-

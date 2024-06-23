@@ -3,7 +3,7 @@ import "../styles/index.css";
 import { initialCards } from "./cards.js";
 import { createCard, deleteCardButton, likeButton, openImage } from "./card.js";
 import { openModal, closeModal, popupAnimated, handleCloseModal, handleButtonLoading } from "./modal.js";
-import {  
+import { 
   placesList, 
   profileEditButton, 
   profileAddButton,   
@@ -18,7 +18,10 @@ import {
   cardName,
   cardLink,
   profileTitle,
-  profileDescription     
+  profileDescription,
+  formEditProfile,
+  formEditAvatar,
+  formNewCard
 } from "./constants.js";
 
 import { enableValidation, clearValidation, validationConfig } from "./validation.js";
@@ -31,6 +34,7 @@ function handleFormSubmit(evt) {
   profileTitle.textContent = inputName;  
   profileDescription.textContent = inputJob;
   closeModal(popupTypeEdit);
+  
 };
 
 // Функция для записи новых значений для полей форм Редактирования имени
@@ -38,7 +42,7 @@ function formEdit() {
   const profileTitle = document.querySelector(".profile__title").textContent;
   const profileDescription = document.querySelector(".profile__description").textContent;
   popupInputTypeName.value = profileTitle;
-  popupInputTypeDescription.value = profileDescription;
+  popupInputTypeDescription.value = profileDescription;  
 };
 
 // Функция добавления новых карточек
@@ -50,12 +54,10 @@ function handleCardSubmit(evt) {
     link: cardLink.value,
   };  
   placesList.prepend(createCard(Card, deleteCardButton, openImage, likeButton)) // prepend Добавляет элементы в начало
-  closeModal(popupTypeNewCard);
-  
+  closeModal(popupTypeNewCard); 
+    
   formElementTypeNewCard.reset(); // Сброс к дефолтным значениям всех полей формы  
-
   handleButtonLoading(evt.target.querySelector('.popup__button')); 
-  clearValidation(formElement, validationConfig); 
 };
 
 // Вывести карточки на страницу
@@ -66,14 +68,14 @@ initialCards.forEach(function(item) {
 // Функция вызова кнопки "Редактироввать" окно, Nickname
 profileEditButton.addEventListener('click', function () {
   openModal(popupTypeEdit);
-  clearValidation(formElement, validationConfig);  
+  clearValidation(formEditProfile, validationConfig);  
 });
 
 // Вызов Модального окна Добавления карточки
 profileAddButton.addEventListener('click', function () {
   openModal(popupTypeNewCard);
   formElement.reset();
-  clearValidation(formElement, validationConfig); 
+  clearValidation(formNewCard, validationConfig); 
 });
 
 formElement.addEventListener('submit', handleFormSubmit);
@@ -86,7 +88,6 @@ modalWindows.forEach((item) => {
 });
 
 enableValidation(validationConfig);
-
 
 
 

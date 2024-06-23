@@ -1,4 +1,4 @@
-export {  // Экспорт Функций
+export { 
   placesList, 
   profileEditButton, 
   profileAddButton,   
@@ -13,7 +13,10 @@ export {  // Экспорт Функций
   cardName,
   cardLink,
   profileTitle,
-  profileDescription     
+  profileDescription,
+  formEditProfile,
+  formEditAvatar,
+  formNewCard
 }
 
 const content = document.querySelector(".content") // Выбор класса
@@ -32,6 +35,10 @@ const cardName = formElementTypeNewCard.querySelector(".popup__input_type_card-n
 const cardLink = formElementTypeNewCard.querySelector(".popup__input_type_url"); // Обращение к классу в форме
 const profileTitle = document.querySelector(".profile__title");  
 const profileDescription = document.querySelector(".profile__description");
+
+const formEditProfile = document.forms['edit-profile'];
+const formEditAvatar = document.forms['edit-avatar'];
+const formNewCard = document.forms['new-place'];
 
 
 
