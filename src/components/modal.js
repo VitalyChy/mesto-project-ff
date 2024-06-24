@@ -18,7 +18,6 @@ function closeOnEsc(evt) {
   }
 }
 
-// Функция добавляет класс
 function popupAnimated(popupElement) {
   popupElement.classList.add("popup_is-animated");
 }
@@ -27,15 +26,15 @@ function popupAnimated(popupElement) {
 function handleCloseModal(popup) {   
   popup.addEventListener('click', (evt) => { // Обработчик события
     if (evt.currentTarget === evt.target) {
-      closeModal(popup)
+      closeModal(popup);      
     }    
   });
   popup.querySelector(".popup__close").addEventListener('click', (event) => {
-    closeModal(popup);
+    closeModal(popup);    
   });  
-};
+}
 
-// Функция изменения вида кнопки
+// Функция изменения вида кнопки Сохранить в модальном окне
 function handleButtonLoading(buttonElement) {
   if (buttonElement.classList.contains('popup__button_loading')) {
     buttonElement.classList.remove('popup__button_loading');

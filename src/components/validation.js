@@ -95,5 +95,5 @@ function clearValidation(formElement, validationConfig) {
     hideInputError(formElement, inputElement, validationConfig);
   });  
   
-  toggleButtonState(inputList, buttonElement, validationConfig);
+  toggleButtonState(inputList, buttonElement, validationConfig);  
 };

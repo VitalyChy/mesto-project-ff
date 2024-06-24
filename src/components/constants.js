@@ -36,7 +36,8 @@ const cardLink = formElementTypeNewCard.querySelector(".popup__input_type_url");
 const profileTitle = document.querySelector(".profile__title");  
 const profileDescription = document.querySelector(".profile__description");
 
-const formEditProfile = document.forms['edit-profile'];
+// Поиск формы по имени в HTML
+const formEditProfile = document.forms['edit-profile']; 
 const formEditAvatar = document.forms['edit-avatar'];
 const formNewCard = document.forms['new-place'];
 

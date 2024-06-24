@@ -25,7 +25,16 @@ import {
 } from "./constants.js";
 
 import { enableValidation, clearValidation, validationConfig } from "./validation.js";
-// import {  } from './api.js';
+import {
+  checkResponse,
+  loadData,
+  postNewCard,
+  deleteCardRequest,
+  changeUserData,
+  changeUserAvatar,
+  addLike,
+  removeLike
+} from './api.js';
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); // Отменяет стандартную отправку формы, убирает перезагрузку страницы
@@ -35,7 +44,7 @@ function handleFormSubmit(evt) {
   profileDescription.textContent = inputJob;
   closeModal(popupTypeEdit);
   
-};
+}
 
 // Функция для записи новых значений для полей форм Редактирования имени
 function formEdit() {
@@ -43,22 +52,31 @@ function formEdit() {
   const profileDescription = document.querySelector(".profile__description").textContent;
   popupInputTypeName.value = profileTitle;
   popupInputTypeDescription.value = profileDescription;  
-};
+}
 
 // Функция добавления новых карточек
 function handleCardSubmit(evt) {
-  evt.preventDefault(); // Отменяет стандартную отправку формы
+  evt.preventDefault(); // Отменяет стандартную отправку формы  
+  handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
 
-  const Card = {
-    name: cardName.value, // Параметр value хранит значение, и передает методу
-    link: cardLink.value,
-  };  
-  placesList.prepend(createCard(Card, deleteCardButton, openImage, likeButton)) // prepend Добавляет элементы в начало
-  closeModal(popupTypeNewCard); 
-    
-  formElementTypeNewCard.reset(); // Сброс к дефолтным значениям всех полей формы  
-  handleButtonLoading(evt.target.querySelector('.popup__button')); 
-};
+  postNewCard(cardName.value, cardLink.value)
+    .then(cardData => {
+      const newCard = createCard(
+        cardData,
+        deleteCardButton,
+        likeButton,
+        openImage,
+        cardData.owner['_id']
+      );
+
+      placesList.prepend(newCard);
+      closeModal(popupTypeNewCard);
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+    });        
+}
 
 // Вывести карточки на страницу
 initialCards.forEach(function(item) {
@@ -72,14 +90,14 @@ profileEditButton.addEventListener('click', function () {
 });
 
 // Вызов Модального окна Добавления карточки
-profileAddButton.addEventListener('click', function () {
+profileAddButton.addEventListener('click', function () {  
   openModal(popupTypeNewCard);
   formElement.reset();
   clearValidation(formNewCard, validationConfig); 
 });
 
 formElement.addEventListener('submit', handleFormSubmit);
-formElementTypeNewCard.addEventListener('submit', handleCardSubmit);
+formNewCard.addEventListener('submit', handleCardSubmit);
 profileEditButton.addEventListener('click', formEdit);
 
 modalWindows.forEach((item) => {    
