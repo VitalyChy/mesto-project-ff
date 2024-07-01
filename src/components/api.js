@@ -3,7 +3,7 @@ export {
   loadData,
   postNewCard,
   deleteCardRequest,
-  changeUserData,
+  changeUser,
   changeUserAvatar,
   addLike,
   removeLike
@@ -13,37 +13,52 @@ const baseUrl = 'https://nomoreparties.co/v1/pwff-cohort-1';
 const headers = {
   authorization: 'cfe0ed0c-4524-49f2-826d-b9561571abd4',
   'Content-Type': 'application/json'
-};
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Не удалось получить данные: ${res.status}`);
 }
 
-function loadUserData() {
-  return fetch(baseUrl + '/users/me', {
+// Функция позволяет обрабатывать ответы от сервера и возвращать данные в формате JSON,
+// в случае успешного запроса или сообщение об ошибке в случае неудачного запроса.
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json(); // Преобразовали данные в формат JSON
+  }
+  return Promise.reject(`Что-то пошло не так: ${res.status}`);
+}
+
+// Метод fetch создаёт запрос на сервер и возвращает его ответ. На вход fetch принимает два аргумента. 
+// Первый — обязательный — URL запрашиваемого ресурса.
+// Второй аргумент — необязательный. Это объект опций. 
+// Чаще всего нужны опции method, headers и body — они отвечают за метод запроса, его заголовки и тело.
+
+function loadUser() {
+  // Метод fetch сделал запрос по адресу baseUrl
+  return fetch(baseUrl + '/users/me', { 
+    // POST Получение данных на сервер
     method: 'GET',
     headers: headers
+    // Обработка ответа от сервера с помощью функции checkResponse
   }).then(checkResponse);
 }
 
-function loadCardsData() {
+// Функция загрузки карточек с сервера
+function loadCards() {
   return fetch(baseUrl + '/cards', {
+    // GET Получение данных от сервера
     method: 'GET',
     headers: headers
   }).then(checkResponse);
 }
 
 function loadData() {
-  return Promise.all([loadUserData(), loadCardsData()]);
+  return Promise.all([loadUser(), loadCards()]);
 }
 
 function postNewCard(cardName, cardLink) {
   return fetch(baseUrl + '/cards', {
+    // POST Отправка данных на сервер
     method: 'POST',
     headers: headers,
+
+    // Метод JSON.stringify делает из объекта строку JSON
     body: JSON.stringify({
       name: cardName,
       link: cardLink
@@ -53,14 +68,14 @@ function postNewCard(cardName, cardLink) {
 
 function deleteCardRequest(cardDataToDelete) {
   return fetch(`${baseUrl}/cards/${cardDataToDelete['_id']}`, {
-    method: 'DELETE',
+    method: 'DELETE', // DELETE — для удаления карточки с сервера.
     headers: headers
   }).then(checkResponse);
 }
 
-function changeUserData(userName, userDescription) {
+function changeUser(userName, userDescription) {
   return fetch(baseUrl + '/users/me', {
-    method: 'PATCH',
+    method: 'PATCH', // PATCH — для частичного обновления ресурса. Например, при обновлении профиля пользователя;
     headers: headers,
     body: JSON.stringify({
       name: userName,
@@ -71,7 +86,7 @@ function changeUserData(userName, userDescription) {
 
 function changeUserAvatar(link) {
   return fetch(baseUrl + '/users/me/avatar', {
-    method: 'PATCH',
+    method: 'PATCH', // PATCH — для частичного обновления ресурса. Например, при обновлении профиля пользователя;
     headers: headers,
     body: JSON.stringify({
       avatar: link
@@ -79,16 +94,18 @@ function changeUserAvatar(link) {
   }).then(checkResponse);
 }
 
+// Функция для добавления лайка
 function addLike(cardData) {
   return fetch(`${baseUrl}/cards/likes/${cardData['_id']}`, {
-    method: 'PUT',
-    headers: headers
+    method: 'PUT', // PUT предназначен для полного обновления указанного ресурса
+    headers: headers    
   }).then(checkResponse);
 }
 
+// Функция для удаления лайка
 function removeLike(cardData) {
   return fetch(`${baseUrl}/cards/likes/${cardData['_id']}`, {
-    method: 'DELETE',
+    method: 'DELETE', // DELETE — для удаления ресурса с сервера.
     headers: headers
   }).then(checkResponse);
 }

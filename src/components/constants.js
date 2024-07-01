@@ -5,14 +5,19 @@ export {
   popupTypeEdit,   
   popupTypeNewCard, 
   popupTypeImage,
+  popupImage,
+  popupImageCaption,
   modalWindows, 
   formElement,
   popupInputTypeName,
   popupInputTypeDescription,  
-  formElementTypeNewCard,
+  popupForm,
   cardName,
   cardLink,
+  popupTypeEditAvatar,
+  profileImageEditButton,
   profileTitle,
+  profileImage,
   profileDescription,
   formEditProfile,
   formEditAvatar,
@@ -26,14 +31,19 @@ const popupTypeNewCard = document.querySelector(".popup_type_new-card"); // Мо
 const profileEditButton = document.querySelector(".profile__edit-button"); // Кнопки Редактирования Nickname
 const profileAddButton = document.querySelector(".profile__add-button"); // Кнопки "+" добавления новых карточек
 const popupTypeImage = document.querySelector(".popup_type_image"); // Модальное окно картинки
-const modalWindows = [popupTypeEdit, popupTypeNewCard, popupTypeImage];
+const popupImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__caption');
+const modalWindows = document.querySelectorAll('.popup'); //  Закрыть модальные окна
 const formElement = document.querySelector(".popup__form"); // Выбор класса Формы
 const popupInputTypeName = formElement.querySelector(".popup__input_type_name"); // Выбор 1 строка форма "Имя"
 const popupInputTypeDescription = formElement.querySelector(".popup__input_type_description"); // Выбор 2 строка форма "Занятие"
-const formElementTypeNewCard = popupTypeNewCard.querySelector(".popup__form"); // Выбор класса Формы
-const cardName = formElementTypeNewCard.querySelector(".popup__input_type_card-name"); // Обращение к классу в форме
-const cardLink = formElementTypeNewCard.querySelector(".popup__input_type_url"); // Обращение к классу в форме
-const profileTitle = document.querySelector(".profile__title");  
+const popupForm = popupTypeNewCard.querySelector(".popup__form"); 
+const cardName = popupForm.querySelector(".popup__input_type_card-name");
+const cardLink = popupForm.querySelector(".popup__input_type_url");
+const popupTypeEditAvatar = document.querySelector('.popup_type_edit-avatar');
+const profileImageEditButton = document.querySelector('.profile__image-edit-button');
+const profileTitle = document.querySelector(".profile__title");
+const profileImage = document.querySelector('.profile__image');  
 const profileDescription = document.querySelector(".profile__description");
 
 // Поиск формы по имени в HTML
