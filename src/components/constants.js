@@ -1,29 +1,3 @@
-export { 
-  placesList, 
-  profileEditButton, 
-  profileAddButton,   
-  popupTypeEdit,   
-  popupTypeNewCard, 
-  popupTypeImage,
-  popupImage,
-  popupImageCaption,
-  modalWindows, 
-  formElement,
-  popupInputTypeName,
-  popupInputTypeDescription,  
-  popupForm,
-  cardName,
-  cardLink,
-  popupTypeEditAvatar,
-  profileImageEditButton,
-  profileTitle,
-  profileImage,
-  profileDescription,
-  formEditProfile,
-  formEditAvatar,
-  formNewCard
-}
-
 const content = document.querySelector(".content") // Выбор класса
 const placesList = content.querySelector(".places__list"); // Выбор класса для выведения карточки
 const popupTypeEdit = document.querySelector(".popup_type_edit"); // Модальное окно редактирования Nickname
@@ -51,6 +25,28 @@ const formEditProfile = document.forms['edit-profile'];
 const formEditAvatar = document.forms['edit-avatar'];
 const formNewCard = document.forms['new-place'];
 
-
-
-
+export { 
+  placesList, 
+  profileEditButton, 
+  profileAddButton,   
+  popupTypeEdit,   
+  popupTypeNewCard, 
+  popupTypeImage,
+  popupImage,
+  popupImageCaption,
+  modalWindows, 
+  formElement,
+  popupInputTypeName,
+  popupInputTypeDescription,  
+  popupForm,
+  cardName,
+  cardLink,
+  popupTypeEditAvatar,
+  profileImageEditButton,
+  profileTitle,
+  profileImage,
+  profileDescription,
+  formEditProfile,
+  formEditAvatar,
+  formNewCard
+}

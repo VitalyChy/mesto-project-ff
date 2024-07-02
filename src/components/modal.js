@@ -1,5 +1,3 @@
-export { openModal, closeModal, popupAnimated, handleCloseModal, handleButtonLoading } // Экспорт Функций
-
 function openModal(popupElement) {
   popupElement.classList.add("popup_is-opened");
   document.addEventListener('keydown', closeOnEsc);
@@ -11,14 +9,14 @@ function closeModal(popupElement) {
 }
 
 // Функция закрытия окна редактирования с помощью кнопки "Esc"
-function closeOnEsc(evt) {
-  const OpenedPopup = document.querySelector(".popup_is-opened");
+function closeOnEsc(evt) {  
   if (evt.key === 'Escape') {
-      closeModal(OpenedPopup);
+      const openedPopup = document.querySelector(".popup_is-opened");
+      closeModal(openedPopup);
   }
 }
 
-function popupAnimated(popupElement) {
+function setPopupAnimated(popupElement) {
   popupElement.classList.add("popup_is-animated");
 }
 
@@ -34,13 +32,4 @@ function handleCloseModal(popup) {
   });  
 }
 
-// Функция изменения вида кнопки Сохранить в модальном окне
-function handleButtonLoading(buttonElement) {
-  if (buttonElement.classList.contains('popup__button_loading')) {
-    buttonElement.classList.remove('popup__button_loading');
-    buttonElement.textContent = 'Сохранить';
-  } else {
-    buttonElement.classList.add('popup__button_loading');
-    buttonElement.textContent = 'Сохранение...';
-  }
-}
+export { openModal, closeModal, setPopupAnimated, handleCloseModal }

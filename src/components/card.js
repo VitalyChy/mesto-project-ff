@@ -1,16 +1,4 @@
-import { popupTypeImage } from "./constants.js";
-import { openModal } from "./modal.js";
 import { deleteCardRequest, addLike, removeLike } from './api.js';
-
-export { createCard, handleLikeButton, deleteCard, openImage } 
-
-// Функция открытия картинки
-function openImage(cardLink, cardName, cardTitle) {
-  popupTypeImage.querySelector(".popup__image").src = cardLink;
-  popupTypeImage.querySelector(".popup__image").alt = cardName;
-  popupTypeImage.querySelector(".popup__caption").textContent = cardTitle;
-  openModal(popupTypeImage);
-}
 
 // Функция создания карточки
 function createCard(initialCard, deleteCard, likeButton, pictureShow, userId) { 
@@ -89,3 +77,5 @@ function handleLikeButton(evt, initialCard, likeNumberElement) {
     })
     .catch(err => console.log(err)); // Вывод ошибки в консоль
 }
+
+export { createCard, handleLikeButton, deleteCard } 

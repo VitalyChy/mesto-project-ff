@@ -1,14 +1,3 @@
-export {
-  checkResponse,
-  loadData,
-  postNewCard,
-  deleteCardRequest,
-  changeUser,
-  changeUserAvatar,
-  addLike,
-  removeLike
-}
-
 const baseUrl = 'https://nomoreparties.co/v1/pwff-cohort-1';
 const headers = {
   authorization: 'cfe0ed0c-4524-49f2-826d-b9561571abd4',
@@ -53,7 +42,6 @@ function loadCards() {
 function loadData() {
   return Promise.all([loadUser(), loadCards()]);
 }
-
 
 // Отправляет POST запрос на сервер для создания новой карточки с указанным названием и ссылкой.
 function postNewCard(cardName, cardLink) {
@@ -117,3 +105,13 @@ function removeLike(cardData) {
   }).then(checkResponse);
 }
 
+export {
+  checkResponse,
+  loadData,
+  postNewCard,
+  deleteCardRequest,
+  changeUser,
+  changeUserAvatar,
+  addLike,
+  removeLike
+}

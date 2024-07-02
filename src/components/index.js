@@ -1,13 +1,16 @@
 // Подключение сторонних файлов
 import "../styles/index.css";
-import { createCard, handleLikeButton, deleteCard, openImage } from "./card.js";
-import { openModal, closeModal, popupAnimated, handleCloseModal, handleButtonLoading } from "./modal.js";
+import { createCard, handleLikeButton, deleteCard } from "./card.js";
+import { openModal, closeModal, setPopupAnimated, handleCloseModal } from "./modal.js";
 import { 
   placesList, 
   profileEditButton, 
   profileAddButton,   
   popupTypeEdit,   
-  popupTypeNewCard,   
+  popupTypeNewCard,
+  popupTypeImage,
+  popupImage,
+  popupImageCaption,   
   modalWindows,  
   popupInputTypeName,
   popupInputTypeDescription,   
@@ -34,21 +37,32 @@ function setUserData(userData) {
 }
 
 // Функция для отображения карточек с сервера
-function cards(initialsCard, userId) {
+function сardsDisplay(initialsCard, userId) {
   initialsCard.forEach(initialCard => {
-    const cardToAdd = createCard(initialCard, deleteCard, handleLikeButton, openImage, userId);
+    const cardToAdd = createCard(initialCard, deleteCard, handleLikeButton, handleOpenImage, userId);
     placesList.append(cardToAdd); // Добавляет в начало карточки с сервера
   });
 }
 
 // Функция загрузки данных Пользователь/Карточка
-function dataLoading() {
+function handleDataLoading() {
   loadData()
     .then(([userData, initialsCard]) => {
       setUserData(userData);
-      cards(initialsCard, userData['_id']);
+      сardsDisplay(initialsCard, userData['_id']);
     })
     .catch(err => console.log(err)); // Вывод ошибки в консоль
+}
+
+// Функция изменения вида кнопки Сохранить в модальном окне
+function handleButtonLoading(buttonElement) {
+  if (buttonElement.classList.contains('popup__button_loading')) {
+    buttonElement.classList.remove('popup__button_loading');
+    buttonElement.textContent = 'Сохранить';
+  } else {
+    buttonElement.classList.add('popup__button_loading');
+    buttonElement.textContent = 'Сохранение...';
+  }
 }
 
 // Функция для редактирования аватара
@@ -56,8 +70,8 @@ function handleFormEditAvatar(evt) {
   evt.preventDefault; // Отменяет стандартную отправку формы 
 
   // извлекается значение ссылки на аватар из элемента ввода формы
-  const EditAvatar = formEditAvatar.querySelector('.popup__input_type_url');
-  const link = EditAvatar.value;
+  const editAvatar = formEditAvatar.querySelector('.popup__input_type_url');
+  const link = editAvatar.value;
   
   handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
 
@@ -103,7 +117,7 @@ function handleCardSubmit(evt) {
   // Отправка запроса на сервер для создания новой карточки с помощью функции
   postNewCard(cardName.value, cardLink.value)
     .then(initialCard => {
-      const newCard = createCard(initialCard, deleteCard, handleLikeButton, openImage, initialCard.owner['_id']);
+      const newCard = createCard(initialCard, deleteCard, handleLikeButton, handleOpenImage, initialCard.owner['_id']);
 
       placesList.prepend(newCard); // Добавляет карточку в начало
 
@@ -114,6 +128,15 @@ function handleCardSubmit(evt) {
       handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
     });
 }
+
+// Функция открытия картинки
+function handleOpenImage(cardLink, cardName, cardTitle) {
+  popupImage.src = cardLink;
+  popupImage.alt = cardName;
+  popupImageCaption.textContent = cardTitle;
+  openModal(popupTypeImage);
+}
+
 
 // Слушатели на открытие Модальных окон
 // Редактировать Аватар
@@ -139,13 +162,13 @@ profileAddButton.addEventListener('click', function () {
 // Вызов функции Закрыть модальные окна 
 modalWindows.forEach((item) => {    
   handleCloseModal(item);
-  popupAnimated(item); // Эффект плавного закрытия модального окна
+  setPopupAnimated(item); // Эффект плавного закрытия модального окна
 });
 
 formNewCard.addEventListener('submit', handleCardSubmit);
 
 enableValidation(validationConfig);
-dataLoading();
+handleDataLoading();
 
 
 
