@@ -29,6 +29,7 @@ function checkResponse(res) {
 // Второй аргумент — необязательный. Это объект опций. 
 // Чаще всего нужны опции method, headers и body — они отвечают за метод запроса, его заголовки и тело.
 
+// Отправляет GET запрос на сервер для загрузки данных о текущем пользователе.
 function loadUser() {
   // Метод fetch сделал запрос по адресу baseUrl
   return fetch(baseUrl + '/users/me', { 
@@ -39,7 +40,7 @@ function loadUser() {
   }).then(checkResponse);
 }
 
-// Функция загрузки карточек с сервера
+// Отправляет GET запрос на сервер для загрузки карточек с сервера.
 function loadCards() {
   return fetch(baseUrl + '/cards', {
     // GET Получение данных от сервера
@@ -48,10 +49,13 @@ function loadCards() {
   }).then(checkResponse);
 }
 
+// Загружает данные о пользователе и карточках.
 function loadData() {
   return Promise.all([loadUser(), loadCards()]);
 }
 
+
+// Отправляет POST запрос на сервер для создания новой карточки с указанным названием и ссылкой.
 function postNewCard(cardName, cardLink) {
   return fetch(baseUrl + '/cards', {
     // POST Отправка данных на сервер
@@ -66,6 +70,7 @@ function postNewCard(cardName, cardLink) {
   }).then(checkResponse);
 }
 
+// Отправляет DELETE запрос на сервер для удаления карточки по её ID.
 function deleteCardRequest(cardDataToDelete) {
   return fetch(`${baseUrl}/cards/${cardDataToDelete['_id']}`, {
     method: 'DELETE', // DELETE — для удаления карточки с сервера.
@@ -73,6 +78,7 @@ function deleteCardRequest(cardDataToDelete) {
   }).then(checkResponse);
 }
 
+// Отправляет PATCH запрос на сервер для обновления имени и описания пользователя.
 function changeUser(userName, userDescription) {
   return fetch(baseUrl + '/users/me', {
     method: 'PATCH', // PATCH — для частичного обновления ресурса. Например, при обновлении профиля пользователя;
@@ -84,6 +90,7 @@ function changeUser(userName, userDescription) {
   }).then(checkResponse);
 }
 
+// Отправляет PATCH запрос на сервер для обновления аватара пользователя.
 function changeUserAvatar(link) {
   return fetch(baseUrl + '/users/me/avatar', {
     method: 'PATCH', // PATCH — для частичного обновления ресурса. Например, при обновлении профиля пользователя;
@@ -94,7 +101,7 @@ function changeUserAvatar(link) {
   }).then(checkResponse);
 }
 
-// Функция для добавления лайка
+// Отправляет PUT запрос на сервер для добавления лайка карточке по её ID.
 function addLike(cardData) {
   return fetch(`${baseUrl}/cards/likes/${cardData['_id']}`, {
     method: 'PUT', // PUT предназначен для полного обновления указанного ресурса
@@ -102,7 +109,7 @@ function addLike(cardData) {
   }).then(checkResponse);
 }
 
-// Функция для удаления лайка
+// Отправляет DELETE запрос на сервер для удаления лайка с карточки по её ID.
 function removeLike(cardData) {
   return fetch(`${baseUrl}/cards/likes/${cardData['_id']}`, {
     method: 'DELETE', // DELETE — для удаления ресурса с сервера.

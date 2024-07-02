@@ -30,7 +30,7 @@ function createCard(initialCard, deleteCard, likeButton, pictureShow, userId) {
   cardLikeNumber.textContent = initialCard.likes.length; // Обновляет отображаемое количество лайков для карточки на веб-странице
 
 
-  // блок условий проверяет, является ли пользователь (userId) владельцем карточки (initialCard). 
+  // Блок условий проверяет, является ли пользователь (userId) владельцем карточки (initialCard). 
   // Если пользователь является владельцем, то добавляется обработчик события на кнопку удаления карточки.
   if (initialCard.owner['_id'] === userId) {
     cardDeleteButton.addEventListener('click', () => {

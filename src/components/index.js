@@ -24,7 +24,7 @@ import {
 } from "./constants.js";
 
 import { enableValidation, clearValidation, validationConfig } from "./validation.js";
-import {loadData, postNewCard, changeUser, changeUserAvatar} from './api.js';
+import { loadData, postNewCard, changeUser, changeUserAvatar } from './api.js';
 
 // Функция для отображения данных пользователя с сервера
 function setUserData(userData) {
@@ -42,7 +42,7 @@ function cards(initialsCard, userId) {
 }
 
 // Функция загрузки данных Пользователь/Карточка
-function pageLoad() {
+function dataLoading() {
   loadData()
     .then(([userData, initialsCard]) => {
       setUserData(userData);
@@ -145,7 +145,7 @@ modalWindows.forEach((item) => {
 formNewCard.addEventListener('submit', handleCardSubmit);
 
 enableValidation(validationConfig);
-pageLoad();
+dataLoading();
 
 
 
