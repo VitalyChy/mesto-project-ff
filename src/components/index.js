@@ -23,7 +23,8 @@ import {
   profileDescription,
   formEditProfile,
   formEditAvatar,
-  formNewCard
+  formNewCard,
+  editAvatar
 } from "./constants.js";
 
 import { enableValidation, clearValidation, validationConfig } from "./validation.js";
@@ -67,13 +68,11 @@ function handleButtonLoading(buttonElement) {
 
 // Функция для редактирования аватара
 function handleFormEditAvatar(evt) {
-  evt.preventDefault; // Отменяет стандартную отправку формы 
-
-  // извлекается значение ссылки на аватар из элемента ввода формы
-  const editAvatar = formEditAvatar.querySelector('.popup__input_type_url');
+  evt.preventDefault(); // Отменяет стандартную отправку формы 
+  
   const link = editAvatar.value;
   
-  handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+  handleButtonLoading(evt.submitter);
 
   // Отправляет запрос на сервер для обновления аватара пользователя с новой ссылкой
   changeUserAvatar(link)
@@ -84,7 +83,7 @@ function handleFormEditAvatar(evt) {
     })
     .catch(err => console.log(err)) // Вывод ошибки в консоль
     .finally(() => {
-      handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+      handleButtonLoading(evt.submitter);
     });
 }
 formEditAvatar.addEventListener('submit', handleFormEditAvatar);
@@ -92,7 +91,7 @@ formEditAvatar.addEventListener('submit', handleFormEditAvatar);
 // Функция для редактирования профиля
 function handleFormEditProfile(evt) {
   evt.preventDefault(); // Отменяет стандартную отправку формы 
-  handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+  handleButtonLoading(evt.submitter);
 
   // Запрос на сервер для обновления данных пользователя с новым именем и описанием
   changeUser(popupInputTypeName.value, popupInputTypeDescription.value)
@@ -104,7 +103,7 @@ function handleFormEditProfile(evt) {
     })
     .catch(err => console.log(err)) // Вывод ошибки в консоль
     .finally(() => {
-      handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+      handleButtonLoading(evt.submitter);
     });
 }
 formEditProfile.addEventListener('submit', handleFormEditProfile);
@@ -112,7 +111,7 @@ formEditProfile.addEventListener('submit', handleFormEditProfile);
 // Функция добавления новых карточек
 function handleCardSubmit(evt) {
   evt.preventDefault(); // Отменяет стандартную отправку формы
-  handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+  handleButtonLoading(evt.submitter);
 
   // Отправка запроса на сервер для создания новой карточки с помощью функции
   postNewCard(cardName.value, cardLink.value)
@@ -125,7 +124,7 @@ function handleCardSubmit(evt) {
     })
     .catch(err => console.log(err)) // Вывод ошибки в консоль
     .finally(() => {
-      handleButtonLoading(evt.target.querySelector(validationConfig.submitButtonSelector));
+      handleButtonLoading(evt.submitter);
     });
 }
 
@@ -133,7 +132,7 @@ function handleCardSubmit(evt) {
 function handleOpenImage(cardLink, cardName, cardTitle) {
   popupImage.src = cardLink;
   popupImage.alt = cardName;
-  popupImageCaption.textContent = cardTitle;
+  popupImageCaption.textContent = cardName;
   openModal(popupTypeImage);
 }
 
@@ -169,9 +168,3 @@ formNewCard.addEventListener('submit', handleCardSubmit);
 
 enableValidation(validationConfig);
 handleDataLoading();
-
-
-
-
-
-

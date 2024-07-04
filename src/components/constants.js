@@ -25,6 +25,8 @@ const formEditProfile = document.forms['edit-profile'];
 const formEditAvatar = document.forms['edit-avatar'];
 const formNewCard = document.forms['new-place'];
 
+const editAvatar = formEditAvatar.querySelector('.popup__input_type_url');
+
 export { 
   placesList, 
   profileEditButton, 
@@ -48,5 +50,6 @@ export {
   profileDescription,
   formEditProfile,
   formEditAvatar,
-  formNewCard
+  formNewCard,
+  editAvatar
 }

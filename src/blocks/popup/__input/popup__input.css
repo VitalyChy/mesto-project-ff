@@ -6,11 +6,25 @@
   font-size: 14px;
   line-height: 18px;
   box-sizing: border-box;
-  padding: 10px 0 0;  
+  padding: 15px 0 0;
+  margin-bottom: 5px;  
 }
 
-.popup__input:last-of-type {
-  margin-bottom: 0;
+.popup__input:focus {
+  outline: none;
+}
+
+.popup__input_type_error {
+  border-bottom: 1px solid rgb(255, 0, 0);
+}
+
+.popup__error_visible {
+  display: block;
+  position: absolute;  
+  z-index: 1;
+  color: #F00;
+  font-size: 12px;
+  margin-bottom: 10px;  
 }
 
 @media screen and (max-width: 568px) {
@@ -19,13 +33,3 @@
     line-height: 15px;
   }
 }
-
-.popup__input_type_error {
-  border-bottom-color: red;
-}
-
-.popup__error_visible {
-  font-size: 12px;
-  color: red;   
-}
-
